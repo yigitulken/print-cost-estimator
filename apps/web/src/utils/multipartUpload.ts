@@ -13,6 +13,10 @@ export interface MultipartProgressEvent {
   totalParts?: number;
 }
 
+// Helper to build API URLs based on environment
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+const api = (path: string) => (API_BASE ? `${API_BASE}${path}` : path);
+
 /**
  * Upload STL file via R2 multipart upload and analyze
  * Returns analysis result
@@ -21,9 +25,6 @@ export async function analyzeViaMultipart(
   file: File,
   onProgress?: (event: MultipartProgressEvent) => void
 ): Promise<AnalysisResult> {
-  const API_BASE = window.location.hostname === 'localhost' 
-    ? 'http://localhost:3001' 
-    : '';
 
   // Phase 1: Initialize upload
   onProgress?.({
@@ -35,7 +36,7 @@ export async function analyzeViaMultipart(
 
   let initResponse;
   try {
-    const initRes = await fetch(`${API_BASE}/api/uploads/init`, {
+    const initRes = await fetch(api('/api/uploads/init'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -80,7 +81,7 @@ export async function analyzeViaMultipart(
     // Get presigned URL for this part
     let partUrlResponse;
     try {
-      const partUrlRes = await fetch(`${API_BASE}/api/uploads/part-url`, {
+      const partUrlRes = await fetch(api('/api/uploads/part-url'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, partNumber }),
@@ -162,7 +163,7 @@ export async function analyzeViaMultipart(
   });
 
   try {
-    const completeRes = await fetch(`${API_BASE}/api/uploads/complete`, {
+    const completeRes = await fetch(api('/api/uploads/complete'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token, parts }),
@@ -194,7 +195,7 @@ export async function analyzeViaMultipart(
   });
 
   try {
-    const analyzeRes = await fetch(`${API_BASE}/api/analyze-upload`, {
+    const analyzeRes = await fetch(api('/api/analyze-upload'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),

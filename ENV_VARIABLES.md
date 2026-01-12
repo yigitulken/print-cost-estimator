@@ -1,6 +1,6 @@
 # Environment Variables Reference
 
-## Required Environment Variables
+## Backend (Server) Environment Variables
 
 ### Cloudflare R2 Configuration
 ```bash
@@ -20,12 +20,25 @@ Generate a secure token secret:
 openssl rand -base64 32
 ```
 
-## Optional Variables
+### Optional Server Variables
 
 ```bash
 PORT=3001              # Server port (default: 3001)
 NODE_ENV=production    # Environment (development/production)
 ```
+
+## Frontend (Web) Environment Variables
+
+### API Base URL (Production)
+```bash
+VITE_API_BASE_URL=https://api.octamak.com
+```
+
+**When to set:**
+- **Production (Cloudflare Pages)**: Set to your Railway backend URL (e.g., `https://api.octamak.com`)
+- **Local Development**: Leave unset (defaults to relative paths, works with Vite proxy)
+
+**Note:** This variable is optional for local development. When not set, API calls use relative paths which work with the local dev server proxy.
 
 ## Getting R2 Credentials
 
@@ -62,7 +75,13 @@ pnpm dev
 ```
 
 ### Production
-Create a `.env` file in `apps/server/` with all variables, or set them in your hosting environment.
+
+**Backend (Railway):**
+Create a `.env` file in `apps/server/` with all backend variables, or set them in your Railway environment.
+
+**Frontend (Cloudflare Pages):**
+Set environment variables in Cloudflare Pages dashboard:
+- `VITE_API_BASE_URL=https://api.octamak.com` (or your Railway backend URL)
 
 ## Behavior Without R2
 

@@ -1,5 +1,9 @@
 import { useState, useRef, FormEvent, ChangeEvent } from 'react';
 
+// Helper to build API URLs based on environment
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+const api = (path: string) => (API_BASE ? `${API_BASE}${path}` : path);
+
 interface QuoteFormProps {
   prefillData?: {
     serviceType?: string;
@@ -203,7 +207,7 @@ export function QuoteForm({ prefillData }: QuoteFormProps) {
         formDataToSend.append('files', file);
       });
 
-      const response = await fetch('/api/quote', {
+      const response = await fetch(api('/api/quote'), {
         method: 'POST',
         body: formDataToSend,
       });
