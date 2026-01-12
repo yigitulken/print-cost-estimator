@@ -89,6 +89,40 @@ Build all packages for production:
 pnpm build
 ```
 
+## Deployment
+
+### Backend (Railway)
+
+The backend API is deployed on Railway at `https://api.octamak.com`.
+
+**Health Endpoints:**
+- `GET /` → Returns API info
+- `GET /health` → Health check
+- `GET /api/health` → Health check (alias)
+
+**CORS Configuration:**
+The API allows requests from:
+- `https://octamak.com`
+- `https://www.octamak.com`
+- `https://*.pages.dev` (Cloudflare Pages preview URLs)
+- `http://localhost:5173` (local development)
+
+### Frontend (Cloudflare Pages)
+
+The frontend is deployed on Cloudflare Pages at `https://www.octamak.com`.
+
+**Environment Variables:**
+Configure the following environment variable in Cloudflare Pages:
+
+```
+VITE_API_BASE_URL=https://api.octamak.com
+```
+
+This ensures all API calls from the frontend go to the correct backend URL.
+
+**Local Development:**
+When `VITE_API_BASE_URL` is not set, the frontend defaults to same-origin requests (e.g., `/api/...`), which works with the local development proxy.
+
 ## API Reference
 
 ### POST /api/analyze

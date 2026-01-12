@@ -88,7 +88,33 @@ function setCacheEntry(id: string, entry: Omit<CacheEntry, 'created_at_ms' | 'ex
 // ============================================================
 
 // CORS configuration
-app.use(cors());
+const allowedOrigins = [
+  'https://octamak.com',
+  'https://www.octamak.com',
+  'http://localhost:5173', // Local development
+  'http://localhost:3000', // Alternative local port
+];
+
+// Allow Cloudflare Pages preview URLs (*.pages.dev)
+const isAllowedOrigin = (origin: string | undefined): boolean => {
+  if (!origin) return true; // Allow requests with no origin (e.g., mobile apps, Postman)
+  if (allowedOrigins.includes(origin)) return true;
+  if (origin.endsWith('.pages.dev')) return true;
+  return false;
+};
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (isAllowedOrigin(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 app.use(express.json({ limit: '2mb' })); // Keep JSON payloads small
 
 // Multer configuration for STL file uploads (LEGACY - capped at 25MB)
@@ -763,9 +789,36 @@ function handleQuoteRequest(req: Request, res: Response): void {
 // Other Routes
 // ============================================================
 
-// Health check
+// Root endpoint
+app.get('/', (_req: Request, res: Response) => {
+  res.json({ 
+    ok: true, 
+    service: 'print-cost-server',
+    message: 'Octamak API',
+    version: '1.0.0',
+  });
+});
+
+// Health check endpoints
+const healthResponse = {
+  ok: true,
+  service: 'print-cost-server',
+  status: 'healthy',
+  timestamp: new Date().toISOString(),
+};
+
 app.get('/health', (_req: Request, res: Response) => {
-  res.json({ status: 'ok' });
+  res.json({
+    ...healthResponse,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.json({
+    ...healthResponse,
+    timestamp: new Date().toISOString(),
+  });
 });
 
 // Global error handler

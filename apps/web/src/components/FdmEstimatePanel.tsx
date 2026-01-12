@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { EstimateResponse, FdmProfile, SupportLevel } from '@print-cost/shared';
+import { apiUrl } from '../config/api';
 import './FdmEstimatePanel.css';
 
 interface FdmEstimatePanelProps {
@@ -88,7 +89,7 @@ export function FdmEstimatePanel({ analysisId }: FdmEstimatePanelProps) {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/estimate', {
+      const response = await fetch(apiUrl('/api/estimate'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -250,24 +251,24 @@ export function FdmEstimatePanel({ analysisId }: FdmEstimatePanelProps) {
             <div className="fdm-stat">
               <span className="fdm-stat-label">Tahmini Malzeme</span>
               <span className="fdm-stat-value">
-                {estimate.estimate.material_g < 1000
-                  ? `${estimate.estimate.material_g.toFixed(1)} g`
-                  : `${estimate.estimate.material_kg.toFixed(3)} kg`}
+                {(typeof estimate.estimate.material_g === 'number' ? estimate.estimate.material_g : Number(estimate.estimate.material_g ?? 0)) < 1000
+                  ? `${(typeof estimate.estimate.material_g === 'number' ? estimate.estimate.material_g : Number(estimate.estimate.material_g ?? 0)).toFixed(1)} g`
+                  : `${(typeof estimate.estimate.material_kg === 'number' ? estimate.estimate.material_kg : Number(estimate.estimate.material_kg ?? 0)).toFixed(3)} kg`}
               </span>
             </div>
 
             <div className="fdm-stat">
               <span className="fdm-stat-label">Tahmini Süre</span>
               <span className="fdm-stat-value">
-                {estimate.estimate.time_h < 1
-                  ? `${Math.round(estimate.estimate.time_h * 60)} dk`
-                  : `${estimate.estimate.time_h.toFixed(2)} sa`}
+                {(typeof estimate.estimate.time_h === 'number' ? estimate.estimate.time_h : Number(estimate.estimate.time_h ?? 0)) < 1
+                  ? `${Math.round((typeof estimate.estimate.time_h === 'number' ? estimate.estimate.time_h : Number(estimate.estimate.time_h ?? 0)) * 60)} dk`
+                  : `${(typeof estimate.estimate.time_h === 'number' ? estimate.estimate.time_h : Number(estimate.estimate.time_h ?? 0)).toFixed(2)} sa`}
               </span>
             </div>
 
             <div className="fdm-stat">
               <span className="fdm-stat-label">Kullanılan Hacim</span>
-              <span className="fdm-stat-value">{estimate.estimate.used_volume_cm3.toFixed(2)} cm³</span>
+              <span className="fdm-stat-value">{(typeof estimate.estimate.used_volume_cm3 === 'number' ? estimate.estimate.used_volume_cm3 : Number(estimate.estimate.used_volume_cm3 ?? 0)).toFixed(2)} cm³</span>
             </div>
           </div>
 

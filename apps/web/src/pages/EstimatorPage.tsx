@@ -7,6 +7,7 @@ import { UploadCard } from '../components/landing';
 import { Header, Footer } from '../components/hisa-landing';
 import { uploadWithProgress } from '../utils/uploadWithProgress';
 import { analyzeViaMultipart } from '../utils/multipartUpload';
+import { apiUrl } from '../config/api';
 import './EstimatorPage.css';
 
 type AppState = 'idle' | 'uploading' | 'analyzing' | 'success' | 'error';
@@ -80,7 +81,7 @@ export function EstimatorPage() {
           // If R2 not configured, fallback to legacy endpoint
           if (err && typeof err === 'object' && 'code' in err && (err as { code: string }).code === 'service_unavailable') {
             data = await uploadWithProgress({
-              url: '/api/analyze',
+              url: apiUrl('/api/analyze'),
               file,
               onProgress: (event) => {
                 setUploadProgress(event.percentage);

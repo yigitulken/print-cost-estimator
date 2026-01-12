@@ -3,6 +3,7 @@
 // ============================================================
 
 import type { AnalysisResult, ApiError } from '@print-cost/shared';
+import { apiUrl } from '../config/api';
 
 export interface MultipartProgressEvent {
   phase: 'initializing' | 'uploading' | 'completing' | 'analyzing';
@@ -12,10 +13,6 @@ export interface MultipartProgressEvent {
   currentPart?: number;
   totalParts?: number;
 }
-
-// Helper to build API URLs based on environment
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
-const api = (path: string) => (API_BASE ? `${API_BASE}${path}` : path);
 
 /**
  * Upload STL file via R2 multipart upload and analyze
@@ -36,7 +33,7 @@ export async function analyzeViaMultipart(
 
   let initResponse;
   try {
-    const initRes = await fetch(api('/api/uploads/init'), {
+    const initRes = await fetch(apiUrl('/api/uploads/init'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -81,7 +78,7 @@ export async function analyzeViaMultipart(
     // Get presigned URL for this part
     let partUrlResponse;
     try {
-      const partUrlRes = await fetch(api('/api/uploads/part-url'), {
+      const partUrlRes = await fetch(apiUrl('/api/uploads/part-url'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token, partNumber }),
@@ -163,7 +160,7 @@ export async function analyzeViaMultipart(
   });
 
   try {
-    const completeRes = await fetch(api('/api/uploads/complete'), {
+    const completeRes = await fetch(apiUrl('/api/uploads/complete'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token, parts }),
@@ -195,7 +192,7 @@ export async function analyzeViaMultipart(
   });
 
   try {
-    const analyzeRes = await fetch(api('/api/analyze-upload'), {
+    const analyzeRes = await fetch(apiUrl('/api/analyze-upload'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),

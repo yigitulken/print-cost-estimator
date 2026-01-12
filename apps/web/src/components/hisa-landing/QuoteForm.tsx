@@ -1,8 +1,8 @@
 import { useState, useRef, FormEvent, ChangeEvent } from 'react';
+import { apiUrl } from '../../config/api';
 
-// Helper to build API URLs based on environment
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
-const api = (path: string) => (API_BASE ? `${API_BASE}${path}` : path);
+// Re-export for backwards compatibility within this file
+const api = apiUrl;
 
 interface QuoteFormProps {
   prefillData?: {
