@@ -4,10 +4,12 @@ A prototype application for estimating 3D printing costs. Upload an STL file, vi
 
 ## Features
 
-- **STL File Upload**: Supports both binary and ASCII STL formats (max 200MB)
+- **STL File Upload**: Supports binary STL format (up to 400MB with multipart upload)
 - **3D Preview**: Interactive 3D viewer with rotate and zoom controls
-- **Instant Analysis**: Computes volume, bounding box dimensions
+- **Instant Analysis**: Computes volume, surface area, and bounding box dimensions
 - **Price Estimates**: FDM (PLA), SLA (Resin), and SLS (PA12) pricing in TRY
+- **Large File Support**: Multipart upload to Cloudflare R2 for files >25MB
+- **Advanced FDM Estimation**: Customizable print profiles (layer height, infill, walls, etc.)
 
 ## Tech Stack
 
@@ -91,37 +93,33 @@ pnpm build
 
 ## Deployment
 
-### Backend (Railway)
+For complete deployment instructions, environment variables, troubleshooting, and verification checklists, see **[DEPLOY.md](./DEPLOY.md)**.
 
-The backend API is deployed on Railway at `https://api.octamak.com`.
+### Quick Overview
+
+- **Frontend**: Cloudflare Pages at `https://www.octamak.com`
+- **Backend**: Railway at `https://api.octamak.com`
+
+**Required Environment Variables:**
+
+Cloudflare Pages:
+```bash
+VITE_API_BASE_URL=https://api.octamak.com
+```
+
+Railway:
+```bash
+R2_ACCOUNT_ID=<cloudflare-r2-account-id>
+R2_ACCESS_KEY_ID=<r2-access-key>
+R2_SECRET_ACCESS_KEY=<r2-secret-key>
+R2_BUCKET_NAME=<bucket-name>
+UPLOAD_TOKEN_SECRET=<random-32-char-string>
+```
 
 **Health Endpoints:**
 - `GET /` → Returns API info
 - `GET /health` → Health check
 - `GET /api/health` → Health check (alias)
-
-**CORS Configuration:**
-The API allows requests from:
-- `https://octamak.com`
-- `https://www.octamak.com`
-- `https://*.pages.dev` (Cloudflare Pages preview URLs)
-- `http://localhost:5173` (local development)
-
-### Frontend (Cloudflare Pages)
-
-The frontend is deployed on Cloudflare Pages at `https://www.octamak.com`.
-
-**Environment Variables:**
-Configure the following environment variable in Cloudflare Pages:
-
-```
-VITE_API_BASE_URL=https://api.octamak.com
-```
-
-This ensures all API calls from the frontend go to the correct backend URL.
-
-**Local Development:**
-When `VITE_API_BASE_URL` is not set, the frontend defaults to same-origin requests (e.g., `/api/...`), which works with the local development proxy.
 
 ## API Reference
 

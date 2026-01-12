@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "concurrently -n server,web -c blue,green \"pnpm --filter @print-cost/server dev\" \"pnpm --filter @print-cost/web dev\"",
-    "build": "pnpm -r build",
+    "build": "pnpm --filter @print-cost/shared build && pnpm --filter @print-cost/web build && pnpm --filter @print-cost/server build",
+    "build:web": "pnpm --filter @print-cost/web... build",
+    "build:server": "pnpm --filter @print-cost/server... build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint"
   },
