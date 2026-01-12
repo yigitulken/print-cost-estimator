@@ -1,0 +1,462 @@
+/* ============================================================
+   ESTIMATOR PAGE - Dark Theme (Hisa Landing Compatible)
+   ============================================================ */
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+.estimator-page {
+  /* Colors - Dark Theme */
+  --est-bg: #0a0a0f;
+  --est-surface: #1a1a26;
+  --est-surface-elevated: #24243a;
+  --est-text-primary: #f5f5f7;
+  --est-text-secondary: #a1a1aa;
+  --est-text-muted: #71717a;
+  --est-border: #2e2e42;
+  --est-border-hover: #3e3e52;
+  --est-accent: #ef4444;
+  --est-accent-hover: #dc2626;
+  --est-accent-60: rgba(239, 68, 68, 0.6);
+  
+  /* Success/Warning/Error */
+  --est-success: #10b981;
+  --est-warning: #f59e0b;
+  --est-error: #ef4444;
+  
+  /* Hisa Landing Variables (for Header/Footer compatibility) */
+  --hisa-bg: #0a0a0f;
+  --hisa-surface: #1a1a26;
+  --hisa-text-primary: #f5f5f7;
+  --hisa-text-secondary: #a1a1aa;
+  --hisa-text-muted: #71717a;
+  --hisa-border: #2e2e42;
+  --hisa-accent: #ef4444;
+  --hisa-space-4: 4px;
+  --hisa-space-8: 8px;
+  --hisa-space-12: 12px;
+  --hisa-space-16: 16px;
+  --hisa-space-24: 24px;
+  --hisa-space-32: 32px;
+  --hisa-space-64: 64px;
+  --hisa-radius-input: 12px;
+  --hisa-radius-chip: 999px;
+  --hisa-container-desktop: 1200px;
+  --hisa-padding-desktop: 120px;
+  --hisa-padding-tablet: 32px;
+  --hisa-padding-mobile: 16px;
+  
+  /* Shadows */
+  --est-shadow-card: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --est-shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.4);
+  
+  /* Spacing */
+  --est-space-4: 4px;
+  --est-space-8: 8px;
+  --est-space-12: 12px;
+  --est-space-16: 16px;
+  --est-space-24: 24px;
+  --est-space-32: 32px;
+  --est-space-48: 48px;
+  --est-space-64: 64px;
+  --est-space-96: 96px;
+  
+  /* Radius */
+  --est-radius-sm: 8px;
+  --est-radius-md: 12px;
+  --est-radius-lg: 16px;
+  
+  /* Layout */
+  --est-container-max: 1200px;
+  --est-header-height: 72px;
+  
+  /* Typography */
+  --est-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --est-font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+.estimator-page {
+  font-family: var(--est-font);
+  background: var(--est-bg);
+  color: var(--est-text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.estimator-page *,
+.estimator-page *::before,
+.estimator-page *::after {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+.estimator-page .container {
+  width: 100%;
+  max-width: var(--est-container-max);
+  margin: 0 auto;
+  padding: 0 var(--est-space-32);
+}
+
+@media (max-width: 767px) {
+  .estimator-page .container {
+    padding: 0 var(--est-space-16);
+  }
+}
+
+/* ============================================================
+   HEADER (Hisa Landing - Already styled in HisaLandingPage.css)
+   ============================================================ */
+/* No additional styles needed - using Header component from hisa-landing */
+
+/* ============================================================
+   HERO SECTION (Upload Area)
+   ============================================================ */
+.estimator-hero {
+  padding-top: calc(var(--est-header-height) + var(--est-space-96));
+  padding-bottom: var(--est-space-96);
+  background: var(--est-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.estimator-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 30%, rgba(239, 68, 68, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.estimator-hero__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  gap: var(--est-space-64);
+  align-items: center;
+}
+
+.estimator-hero__text {
+  max-width: 600px;
+}
+
+.estimator-hero__eyebrow {
+  display: inline-block;
+  padding: var(--est-space-8) var(--est-space-16);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--est-accent);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 999px;
+  margin-bottom: var(--est-space-16);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.estimator-hero__title {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 700;
+  color: var(--est-text-primary);
+  margin: 0 0 var(--est-space-24);
+  letter-spacing: -0.02em;
+}
+
+.estimator-hero__subtitle {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--est-text-secondary);
+  margin: 0;
+  max-width: 540px;
+}
+
+@media (max-width: 991px) {
+  .estimator-hero {
+    padding-top: calc(64px + var(--est-space-64));
+    padding-bottom: var(--est-space-64);
+  }
+  
+  .estimator-hero__content {
+    grid-template-columns: 1fr;
+    gap: var(--est-space-48);
+    text-align: center;
+  }
+  
+  .estimator-hero__text {
+    max-width: 100%;
+  }
+  
+  .estimator-hero__subtitle {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .estimator-hero {
+    padding-top: calc(64px + var(--est-space-48));
+    padding-bottom: var(--est-space-48);
+  }
+  
+  .estimator-hero__title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+
+/* ============================================================
+   UPLOAD CARD (Dark Theme)
+   ============================================================ */
+.estimator-page .upload-card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.estimator-page .upload-card {
+  width: 520px;
+  max-width: 100%;
+  background: var(--est-surface);
+  border: 1px solid var(--est-border);
+  border-radius: var(--est-radius-lg);
+  padding: var(--est-space-32);
+  box-shadow: var(--est-shadow-card);
+}
+
+.estimator-page .upload-card-header {
+  margin-bottom: var(--est-space-24);
+  text-align: center;
+}
+
+.estimator-page .upload-card-title {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  color: var(--est-text-primary);
+  margin: 0 0 var(--est-space-8);
+}
+
+.estimator-page .upload-card-subtitle {
+  font-size: 15px;
+  color: var(--est-text-secondary);
+  margin: 0;
+}
+
+/* Dropzone */
+.estimator-page .upload-dropzone {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--est-space-16);
+  border: 2px dashed var(--est-border);
+  border-radius: var(--est-radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--est-bg);
+}
+
+.estimator-page .upload-dropzone:hover {
+  border-color: var(--est-accent);
+  background: rgba(239, 68, 68, 0.03);
+}
+
+.estimator-page .upload-dropzone.dragging {
+  border-color: var(--est-accent);
+  background: rgba(239, 68, 68, 0.06);
+  transform: scale(1.01);
+}
+
+.estimator-page .upload-dropzone-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--est-accent);
+  opacity: 0.8;
+}
+
+.estimator-page .upload-dropzone-text {
+  text-align: center;
+}
+
+.estimator-page .upload-dropzone-text strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--est-text-primary);
+  margin-bottom: var(--est-space-4);
+}
+
+.estimator-page .upload-dropzone-text span {
+  font-size: 14px;
+  color: var(--est-text-secondary);
+}
+
+/* Upload States */
+.estimator-page .upload-loading {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--est-space-16);
+}
+
+.estimator-page .upload-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--est-border);
+  border-top-color: var(--est-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.estimator-page .upload-loading-text {
+  font-size: 15px;
+  color: var(--est-text-secondary);
+}
+
+.estimator-page .upload-progress-container {
+  width: 280px;
+  height: 6px;
+  background: var(--est-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.estimator-page .upload-progress-bar {
+  height: 100%;
+  background: var(--est-accent);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+/* Badges */
+.estimator-page .upload-badges {
+  display: flex;
+  justify-content: center;
+  gap: var(--est-space-8);
+  margin-top: var(--est-space-16);
+}
+
+.estimator-page .upload-badge {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--est-text-secondary);
+  padding: var(--est-space-4) var(--est-space-12);
+  background: var(--est-surface-elevated);
+  border: 1px solid var(--est-border);
+  border-radius: 999px;
+}
+
+/* Messages */
+.estimator-page .upload-error,
+.estimator-page .upload-warning {
+  padding: var(--est-space-12) var(--est-space-16);
+  border-radius: var(--est-radius-md);
+  margin-top: var(--est-space-16);
+  font-size: 14px;
+  text-align: center;
+}
+
+.estimator-page .upload-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--est-error);
+}
+
+.estimator-page .upload-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--est-warning);
+}
+
+/* ============================================================
+   RESULTS SECTION
+   ============================================================ */
+.estimator-page .results-section-landing {
+  padding: var(--est-space-96) 0;
+  background: var(--est-surface);
+}
+
+.estimator-page .results-layout-landing {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: var(--est-space-32);
+  align-items: start;
+}
+
+.estimator-page .warning-banner-landing {
+  grid-column: 1 / -1;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--est-warning);
+  padding: var(--est-space-12) var(--est-space-24);
+  border-radius: var(--est-radius-md);
+  font-size: 14px;
+  text-align: center;
+}
+
+.estimator-page .viewer-section-landing {
+  background: var(--est-bg);
+  border: 1px solid var(--est-border);
+  border-radius: var(--est-radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  min-height: 400px;
+}
+
+.estimator-page .results-panel-section {
+  position: sticky;
+  top: calc(var(--est-header-height) + var(--est-space-24));
+}
+
+@media (max-width: 991px) {
+  .estimator-page .results-layout-landing {
+    grid-template-columns: 1fr;
+  }
+  
+  .estimator-page .results-panel-section {
+    position: static;
+  }
+}
+
+/* ============================================================
+   FOOTER (Hisa Landing - Already styled in HisaLandingPage.css)
+   ============================================================ */
+/* No additional styles needed - using Footer component from hisa-landing */
+
+/* ============================================================
+   SMOOTH SCROLL
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  .estimator-page *,
+  .estimator-page *::before,
+  .estimator-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,196 @@
+/* ============================================================
+   RESULTS PANEL - Dark Theme
+   ============================================================ */
+
+.results-panel {
+  background: var(--est-surface, #1a1a26);
+  border: 1px solid var(--est-border, #2e2e42);
+  border-radius: var(--est-radius-lg, 16px);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.results-header h2 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  color: var(--est-text-primary, #f5f5f7);
+  margin-bottom: 8px;
+}
+
+.file-name {
+  font-family: var(--est-font-mono, 'SF Mono', 'Monaco', monospace);
+  font-size: 14px;
+  color: var(--est-text-secondary, #a1a1aa);
+  word-break: break-all;
+}
+
+/* Metrics */
+.results-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.metric-card {
+  background: var(--est-bg, #0a0a0f);
+  border: 1px solid var(--est-border, #2e2e42);
+  border-radius: var(--est-radius-md, 12px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--est-text-muted, #71717a);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-value {
+  font-family: var(--est-font-mono, 'SF Mono', 'Monaco', monospace);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--est-text-primary, #f5f5f7);
+}
+
+.metric-value.dimensions {
+  font-size: 16px;
+}
+
+/* Prices */
+.prices-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--est-text-secondary, #a1a1aa);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.prices-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.price-card {
+  background: var(--est-bg, #0a0a0f);
+  border: 1px solid var(--est-border, #2e2e42);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--est-radius-md, 12px);
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.price-card:hover {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.02);
+  transform: translateY(-1px);
+}
+
+.price-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.price-tech {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--est-text-primary, #f5f5f7);
+}
+
+.price-amount {
+  font-family: var(--est-font-mono, 'SF Mono', 'Monaco', monospace);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.price-description {
+  font-size: 14px;
+  color: var(--est-text-muted, #71717a);
+  line-height: 1.5;
+}
+
+/* Meta */
+.results-meta {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--est-border, #2e2e42);
+  font-family: var(--est-font-mono, 'SF Mono', 'Monaco', monospace);
+  font-size: 12px;
+  color: var(--est-text-muted, #71717a);
+}
+
+/* FDM Note */
+.fdm-note {
+  padding: 16px 20px;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: var(--est-radius-md, 12px);
+  font-size: 14px;
+  color: var(--est-text-secondary, #a1a1aa);
+  line-height: 1.5;
+}
+
+/* Button */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  font-family: var(--est-font, 'Inter', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--est-text-secondary, #a1a1aa);
+  background: transparent;
+  border: 1px solid var(--est-border, #2e2e42);
+  border-radius: var(--est-radius-md, 12px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  color: var(--est-text-primary, #f5f5f7);
+  border-color: var(--est-border-hover, #3e3e52);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--est-accent-60, rgba(239, 68, 68, 0.6));
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .results-panel {
+    padding: 24px;
+  }
+  
+  .results-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-meta {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+}
